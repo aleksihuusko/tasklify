@@ -3,6 +3,7 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 
 import { cn } from "@/lib/utils";
+import QueryProvider from "@/components/query-provider";
 
 import "./globals.css";
 
@@ -26,7 +27,9 @@ export default function RootLayout({
         "min-h-screen antialiased",
       )}
     >
-      <body>{children}</body>
+      <body>
+        <QueryProvider>{children}</QueryProvider>
+      </body>
     </html>
   );
 }

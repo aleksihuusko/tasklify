@@ -24,15 +24,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-const formSchema = z.object({
-  name: z.string().trim().min(1, { message: "Name is required" }),
-  email: z.string().email({ message: "Invalid email address" }),
-  password: z.string().min(8, { message: "Min 8 characters" }),
-});
+import { registerSchema } from "../schemas";
+import { useRegister } from "../api/use-register";
 
 export function SignUpCard() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const { mutate } = useRegister();
+
+  const form = useForm<z.infer<typeof registerSchema>>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -40,8 +39,8 @@ export function SignUpCard() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  function onSubmit(values: z.infer<typeof registerSchema>) {
+    mutate({ json: values });
   }
 
   return (
@@ -117,7 +116,7 @@ export function SignUpCard() {
                 )}
               />
               <Button size="lg" type="submit" className="mt-2 w-full">
-                Create account
+                Create a new account
               </Button>
             </form>
           </Form>
