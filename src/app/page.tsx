@@ -1,10 +1,9 @@
-import { Input } from "@/components/ui/input";
+import Logo from "@/components/logo";
 
 export default function Home() {
   return (
-    <main>
-      <h1 className="text-4xl font-semibold">Tasklify</h1>
-      <Input placeholder="Enter your task" />
+    <main className="flex h-screen flex-col items-center justify-center">
+      <Logo />
     </main>
   );
 }
