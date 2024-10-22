@@ -69,7 +69,12 @@ export function SignInCard() {
                     <FormMessage />
                   </div>
                   <FormControl>
-                    <Input type="email" placeholder="Email" {...field} />
+                    <Input
+                      autoComplete="email"
+                      type="email"
+                      placeholder="Email"
+                      {...field}
+                    />
                   </FormControl>
                 </FormItem>
               )}

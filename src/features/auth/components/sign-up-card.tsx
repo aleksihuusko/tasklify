@@ -51,7 +51,7 @@ export function SignUpCard() {
             Sign Up
           </CardTitle>
           <CardDescription className="text-center text-sm text-muted-foreground">
-            Create an account to continue.
+            Create a new account to continue.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -72,7 +72,12 @@ export function SignUpCard() {
                       <FormMessage />
                     </div>
                     <FormControl>
-                      <Input type="text" placeholder="Name" {...field} />
+                      <Input
+                        autoComplete="name"
+                        type="text"
+                        placeholder="Name"
+                        {...field}
+                      />
                     </FormControl>
                   </FormItem>
                 )}
@@ -89,7 +94,12 @@ export function SignUpCard() {
                       <FormMessage />
                     </div>
                     <FormControl>
-                      <Input type="email" placeholder="Email" {...field} />
+                      <Input
+                        autoComplete="email"
+                        type="email"
+                        placeholder="Email"
+                        {...field}
+                      />
                     </FormControl>
                   </FormItem>
                 )}
