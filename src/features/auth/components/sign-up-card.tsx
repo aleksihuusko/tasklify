@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/form";
 
 const formSchema = z.object({
-  name: z.string().min(1, { message: "Name is required" }),
+  name: z.string().trim().min(1, { message: "Name is required" }),
   email: z.string().email({ message: "Invalid email address" }),
   password: z.string().min(8, { message: "Min 8 characters" }),
 });
@@ -60,8 +60,8 @@ export function SignUpCard() {
 
           <Form {...form}>
             <form
-              className="flex flex-col gap-4"
               onSubmit={form.handleSubmit(onSubmit)}
+              className="flex flex-col gap-4"
             >
               <FormField
                 control={form.control}
@@ -116,23 +116,23 @@ export function SignUpCard() {
                   </FormItem>
                 )}
               />
-              <Button size="lg" type="submit" className="w-full">
-                Sign up
+              <Button size="lg" type="submit" className="mt-2 w-full">
+                Create account
               </Button>
             </form>
           </Form>
+          <Separator className="mb-4 mt-8" />
           <Button
             size="lg"
             variant="outline"
             className="mt-4 inline-flex w-full items-center gap-2"
           >
             <FcGoogle className="size-5" />
-            with Google
+            Sign up with Google
           </Button>
         </CardContent>
         <CardFooter className="flex flex-col items-center gap-2">
-          <Separator className="mb-4" />
-
+          <Separator className="mb-3 mt-2" />
           <div className="inline-flex items-center gap-2">
             <span className="text-sm">
               Already have an account?{" "}

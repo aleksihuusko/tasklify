@@ -56,8 +56,8 @@ export function SignInCard() {
         <Separator className="mb-6" />
         <Form {...form}>
           <form
-            className="flex flex-col gap-4"
             onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col gap-4"
           >
             <FormField
               control={form.control}
@@ -90,10 +90,11 @@ export function SignInCard() {
               )}
             />
             <Button size="lg" type="submit">
-              Sign in
+              Login
             </Button>
           </form>
         </Form>
+        <Separator className="mb-4 mt-8" />
         <Button
           size="lg"
           variant="outline"
@@ -104,7 +105,7 @@ export function SignInCard() {
         </Button>
       </CardContent>
       <CardFooter className="flex flex-col items-center gap-2">
-        <Separator className="my-2" />
+        <Separator className="mb-3 mt-2" />
         <div className="inline-flex items-center gap-2">
           <span className="text-sm">
             Don&apos;t have an account?{" "}

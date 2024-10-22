@@ -17,17 +17,13 @@ export default function AuthLayout({
       <div className="container mx-auto px-[5%]">
         <nav className="flex items-center justify-between py-2">
           <Link href="/" className="py-2">
-            <Logo className="h-8 w-auto" />
+            <Logo />
           </Link>
-          {pathname === "/sign-in" ? (
-            <Button asChild variant="outline">
-              <Link href="/sign-up">Sign up</Link>
-            </Button>
-          ) : (
-            <Button asChild variant="outline">
-              <Link href="/sign-in">Sign in</Link>
-            </Button>
-          )}
+          <Button asChild variant="outline">
+            <Link href={pathname === "/sign-in" ? "/sign-up" : "/sign-in"}>
+              {pathname === "/sign-in" ? "Sign up" : "Sign in"}
+            </Link>
+          </Button>
         </nav>
         <div className="flex h-full flex-col items-center justify-center pt-12">
           {children}
