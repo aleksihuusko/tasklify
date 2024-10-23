@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -28,7 +30,7 @@ import { loginSchema } from "../schemas";
 import { useLogin } from "../api/use-login";
 
 export function SignInCard() {
-  const { mutate } = useLogin();
+  const { mutate, isPending } = useLogin();
 
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -70,6 +72,7 @@ export function SignInCard() {
                   </div>
                   <FormControl>
                     <Input
+                      disabled={isPending}
                       autoComplete="email"
                       type="email"
                       placeholder="Email"
@@ -89,18 +92,29 @@ export function SignInCard() {
                     <FormMessage />
                   </div>
                   <FormControl>
-                    <Input type="password" placeholder="Password" {...field} />
+                    <Input
+                      disabled={isPending}
+                      type="password"
+                      placeholder="Password"
+                      {...field}
+                    />
                   </FormControl>
                 </FormItem>
               )}
             />
-            <Button size="lg" type="submit" className="mt-2 w-full">
-              Login
+            <Button
+              disabled={isPending}
+              size="lg"
+              type="submit"
+              className="mt-2 w-full"
+            >
+              {isPending ? "Logging in..." : "Login"}
             </Button>
           </form>
         </Form>
         <Separator className="mb-4 mt-8" />
         <Button
+          disabled={isPending}
           size="lg"
           variant="outline"
           className="mt-4 inline-flex w-full items-center gap-2"

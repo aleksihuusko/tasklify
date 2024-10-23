@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -28,7 +30,7 @@ import { registerSchema } from "../schemas";
 import { useRegister } from "../api/use-register";
 
 export function SignUpCard() {
-  const { mutate } = useRegister();
+  const { mutate, isPending } = useRegister();
 
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
@@ -73,6 +75,7 @@ export function SignUpCard() {
                     </div>
                     <FormControl>
                       <Input
+                        disabled={isPending}
                         autoComplete="name"
                         type="text"
                         placeholder="Name"
@@ -95,6 +98,7 @@ export function SignUpCard() {
                     </div>
                     <FormControl>
                       <Input
+                        disabled={isPending}
                         autoComplete="email"
                         type="email"
                         placeholder="Email"
@@ -117,6 +121,7 @@ export function SignUpCard() {
                     </div>
                     <FormControl>
                       <Input
+                        disabled={isPending}
                         type="password"
                         placeholder="Password"
                         {...field}
@@ -125,13 +130,19 @@ export function SignUpCard() {
                   </FormItem>
                 )}
               />
-              <Button size="lg" type="submit" className="mt-2 w-full">
-                Create a new account
+              <Button
+                disabled={isPending}
+                size="lg"
+                type="submit"
+                className="mt-2 w-full"
+              >
+                {isPending ? "Creating account..." : "Create a new account"}
               </Button>
             </form>
           </Form>
           <Separator className="mb-4 mt-8" />
           <Button
+            disabled={isPending}
             size="lg"
             variant="outline"
             className="mt-4 inline-flex w-full items-center gap-2"

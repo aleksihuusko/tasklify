@@ -15,10 +15,9 @@ export default function AuthLayout({
   return (
     <main className="min-h-screen bg-neutral-100">
       <div className="container mx-auto px-[5%]">
-        <nav className="flex items-center justify-between py-2">
-          <Link href="/" className="py-2">
-            <Logo />
-          </Link>
+        <nav className="flex items-center justify-between py-4">
+          <Logo />
+
           <Button asChild variant="outline">
             <Link href={pathname === "/sign-in" ? "/sign-up" : "/sign-in"}>
               {pathname === "/sign-in" ? "Sign up" : "Sign in"}
