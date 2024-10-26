@@ -1,0 +1,2 @@
+export const DATABASE = process.env.NEXT_PUBLIC_APPWRITE_DATABASE!;
+export const WORKSPACES = process.env.NEXT_PUBLIC_APPWRITE_WORKSPACES!;

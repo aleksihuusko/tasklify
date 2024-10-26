@@ -63,7 +63,7 @@ const items = [
 ];
 
 export function AppSidebar() {
-  const { mutate: signOut } = useLogout();
+  const { mutate: logOut } = useLogout();
   const { data: user } = useUser();
   const { toggleSidebar } = useSidebar();
   const isMobile = useIsMobile();
@@ -132,10 +132,10 @@ export function AppSidebar() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   className="cursor-pointer"
-                  onClick={() => signOut()}
+                  onClick={() => logOut()}
                 >
                   <LogOutIcon />
-                  <span>Sign out</span>
+                  <span>Log out</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

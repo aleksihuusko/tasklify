@@ -4,6 +4,7 @@ import { GeistMono } from "geist/font/mono";
 
 import { cn } from "@/lib/utils";
 import QueryProvider from "@/components/query-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 import "./globals.css";
 
@@ -28,7 +29,10 @@ export default function RootLayout({
       )}
     >
       <body>
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          {children}
+          <Toaster />
+        </QueryProvider>
       </body>
     </html>
   );
