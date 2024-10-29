@@ -2,6 +2,8 @@
 
 import { z } from "zod";
 import { useForm } from "react-hook-form";
+import { ImageIcon } from "lucide-react";
+import { useRef } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { createWorkspaceSchema } from "../schemas";
 import useCreateWorkspace from "../api/use-create-workspace";
@@ -30,6 +33,8 @@ export default function CreateWorkspaceForm({
 }: CreateWorkspaceFormProps) {
   const { mutate, isPending } = useCreateWorkspace();
 
+  const imageInputRef = useRef<HTMLInputElement>(null);
+
   const form = useForm<z.infer<typeof createWorkspaceSchema>>({
     resolver: zodResolver(createWorkspaceSchema),
     defaultValues: {
@@ -38,8 +43,19 @@ export default function CreateWorkspaceForm({
   });
 
   const onSubmit = (values: z.infer<typeof createWorkspaceSchema>) => {
-    console.log({ values });
-    mutate({ json: values });
+    const finalValues = {
+      ...values,
+      image: values.image instanceof File ? values.image : "",
+    };
+
+    mutate({ form: finalValues });
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      form.setValue("image", file);
+    }
   };
 
   return (
@@ -73,6 +89,60 @@ export default function CreateWorkspaceForm({
                       This is the name of your workspace.
                     </FormDescription>
                   </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="image"
+                render={({ field }) => (
+                  <div className="flex items-center gap-4">
+                    <Avatar
+                      className="relative flex size-20 cursor-pointer items-center gap-5"
+                      onClick={() => imageInputRef.current?.click()}
+                    >
+                      {field.value ? (
+                        <AvatarImage
+                          src={
+                            field.value instanceof File
+                              ? URL.createObjectURL(field.value)
+                              : field.value
+                          }
+                          alt="Workspace image"
+                          className="object-cover"
+                        />
+                      ) : (
+                        <AvatarFallback className="size-20">
+                          <ImageIcon className="size-8 text-muted-foreground" />
+                        </AvatarFallback>
+                      )}
+                    </Avatar>
+                    <div className="flex flex-row items-center gap-8">
+                      <div className="flex flex-col gap-1">
+                        <p className="text-sm font-medium">Workspace image</p>
+                        <p className="text-xs text-muted-foreground">
+                          Maximum size 1MB (JPG, PNG, SVG, JPEG)
+                        </p>
+                        <input
+                          type="file"
+                          ref={imageInputRef}
+                          className="hidden"
+                          accept=".png, .jpg, .jpeg, .svg"
+                          disabled={isPending}
+                          onChange={handleImageChange}
+                        />
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        disabled={isPending}
+                        type="button"
+                        onClick={() => imageInputRef.current?.click()}
+                        className="mt-2 w-fit"
+                      >
+                        Upload image
+                      </Button>
+                    </div>
+                  </div>
                 )}
               />
             </div>
